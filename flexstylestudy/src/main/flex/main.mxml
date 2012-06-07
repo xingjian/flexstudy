@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"  creationComplete="init()"
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Style source="main.css" />
+	<fx:Declarations>
+		<s:Fade id="fade" target="{dataGrid}" alphaFrom="0" alphaTo="1" duration="1000"   />
+		<s:Fade id="fade1" target="{list1}"  alphaFrom="0" alphaTo="1" duration="1000" />
+	</fx:Declarations>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		.dataGrid{
+			fontFamily:'楷体';
+			fontSize:12;
+		}
+		
+		.label1{
+			fontFamily:'微软雅黑';
+			fontSize:12;
+			fontWeight:bold
+		}
+		.label2{
+			fontFamily:'微软雅黑';
+			fontSize:12;
+		}
+		.dataGridHeader{
+			fontFamily:'微软雅黑';
+			fontSize:12;
+			backgroundColor:#888888
+		}
+		
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.CalendarLayoutChangeEvent;
+			import mx.events.ListEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable]
+			public var list:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			public var item:Object;
+			
+			public function init():void{
+				var object1:Object = {filed1:"李小璐",filed2:"6.13",filed3:"我的未来",icon:"lixiaolu"};
+				var object2:Object = {filed1:"姚明",filed2:"16.74",filed3:"篮球世界",icon:"yaoming"};
+				var object3:Object = {filed1:"比尔盖茨",filed2:"12.67",filed3:"我的自传",icon:"bier"};
+				list.addItem(object1);
+				list.addItem(object2);
+				list.addItem(object3);
+			}
+			
+			protected function dataGrid_itemClickHandler(event:ListEvent):void
+			{
+				item = dataGrid.selectedItem;
+			}
+			
+			protected function buttonBar_changeHandler(event:IndexChangeEvent):void
+			{
+				if(buttonBar.selectedIndex!=-1){
+					myViewStack.selectedIndex = buttonBar.selectedIndex;
+					if(buttonBar.selectedIndex==0){
+						list1.selectedItem = item;
+						fade1.play();
+					}else{
+						dataGrid.selectedItem = item;
+						fade.play();
+					}
+				}
+			}
+			
+			protected function list1_changeHandler(event:IndexChangeEvent):void
+			{
+				item = list1.selectedItem;				
+			}
+			
+		]]>
+	</fx:Script>
+		<s:Panel x="150" y="50"  borderColor="#dddddd"  width="700" height="450" cornerRadius="8" dropShadowVisible="false" >
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="center" />
+			</s:layout>
+			<s:HGroup width="90%" height="50" verticalAlign="middle">
+				<s:ButtonBar id="buttonBar" requireSelection="true"  change="buttonBar_changeHandler(event)">
+					<mx:ArrayCollection> 
+						<fx:Object label="Button1" toolTip="图像"  iconnormal="com/promise/cn/images/thumb_button_unselected.png"  iconselect="com/promise/cn/images/thumb_button_selected.png"  />
+						<fx:Object label="Button2" toolTip="表格"  iconnormal="com/promise/cn/images/list_button_unselected.png" iconselect="com/promise/cn/images/list_button_selected.png" />
+					</mx:ArrayCollection>
+				</s:ButtonBar>
+			</s:HGroup>
+			<mx:ViewStack id="myViewStack"  width="90%" height="40%" selectedIndex="0" creationPolicy="all">
+				<s:NavigatorContent id="nc1">
+					<s:List dataProvider="{list}" id="list1"  labelField="filed1" width="100%" height="100%" change="list1_changeHandler(event)" itemRenderer="com.promise.cn.renderer.ListRendererImage" >
+						<s:layout> 
+							<s:HorizontalLayout  requestedMinColumnCount="4" gap="0"   />
+						</s:layout> 
+					</s:List>
+				</s:NavigatorContent>
+				<s:NavigatorContent id="nc2">
+					<mx:DataGrid id="dataGrid" borderVisible="false" itemClick="dataGrid_itemClickHandler(event)" headerStyleName="dataGridHeader"   width="100%" height="100%" dataProvider="{list}" styleName="dataGrid">
+						<mx:columns>
+							<mx:DataGridColumn headerText="Author" dataField="filed1"  />
+							<mx:DataGridColumn headerText="Rating" dataField="filed2"  />
+							<mx:DataGridColumn headerText="Name" dataField="filed3"  />
+						</mx:columns>
+					</mx:DataGrid>
+				</s:NavigatorContent>
+			</mx:ViewStack>
+			
+			<s:HGroup width="90%" height="35%" verticalAlign="bottom" visible="{null!=item}" gap="50">
+				<s:Image source="{'com/promise/cn/images/'+item.icon+'.jpg'}" fillMode="clip"  />
+				<s:VGroup width="50%" height="100%" verticalAlign="bottom" gap="13">
+					<s:HGroup >
+						<s:Label text="Author： " styleName="label1" />
+						<s:Label text="{item.filed1}" styleName="label2" />
+					</s:HGroup>
+					<s:HGroup >
+						<s:Label text="Rating： "  styleName="label1" />
+						<s:Label text="{item.filed2}" styleName="label2" />
+					</s:HGroup>
+					<s:HGroup >
+						<s:Label text="Name： "  styleName="label1"  />
+						<s:Label text="{item.filed3}" styleName="label2" />
+					</s:HGroup>
+					<s:HGroup >
+						<s:Button label="DownLoad" height="22" cornerRadius="10"  />
+						<s:Button label="View Book" height="22"  cornerRadius="10" />
+					</s:HGroup>
+				</s:VGroup>
+			</s:HGroup>
+		</s:Panel>
+</s:Application>

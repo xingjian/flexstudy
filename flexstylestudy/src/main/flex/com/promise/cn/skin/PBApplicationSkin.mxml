@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" name="PBApplicationSkin" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.Application")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			public function setBorderBackground(url:String):void{
+				var loader:Loader = new Loader();
+				loader.contentLoaderInfo.addEventListener(Event.COMPLETE,handleLoadComplete);
+				loader.load(new URLRequest(url));
+			}
+			
+			private function handleLoadComplete( evt:Event ):void{
+				var bmp:Bitmap = (evt.target as LoaderInfo).content as Bitmap;
+				bgImage.source = bmp; 
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="disabled"/>
+	</s:states>
+	<s:Rect width="100%" height="100%" left="0" top="0" right="0" bottom="0" alpha="5.0">
+		<!--设置边框
+		<s:stroke> 
+			<s:SolidColorStroke color="0" alpha="0.0" weight="0" /> 
+		</s:stroke>
+		-->
+		<s:fill>
+			<s:BitmapFill id="bgImage" source="@Embed('com/promise/cn/images/main_bg.png')"  fillMode="repeat" smooth="true" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect alpha="0.5" x="0" y="0" width="100%" height="100%"> 
+		<s:fill> 
+			<s:LinearGradient rotation="90"> 
+				<s:GradientEntry color="0x000000" alpha="1.0" /> 
+				<s:GradientEntry color="0xffffff" alpha="0"/> 
+			</s:LinearGradient> 
+		</s:fill> 
+	</s:Rect>
+	<s:Group id="contentGroup" left="0" right="0" top="0" bottom="0"> 
+	</s:Group>
+</s:SparkSkin>

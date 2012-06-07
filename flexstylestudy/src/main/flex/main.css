@@ -1,0 +1,22 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+s|Application{
+	fontFamily:"微软雅黑";
+	skinClass:ClassReference("com.promise.cn.skin.PBApplicationSkin");
+}
+s|Panel{
+	skinClass:ClassReference("com.promise.cn.skin.PBPanelSkin");
+}
+s|Button{
+	cornerRadius:10;
+	fontFamily:"微软雅黑"; 
+	fontWeight:"bold";
+	skinClass:ClassReference("com.promise.cn.skin.PBButtonSkin");
+}
+s|ButtonBar{
+	skinClass:ClassReference("com.promise.cn.skin.PBButtonBarSkin");
+}
+
+
