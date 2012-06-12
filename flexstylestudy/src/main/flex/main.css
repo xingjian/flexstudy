@@ -1,6 +1,7 @@
 /* CSS file */
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/mx";
+@namespace views "com.promise.cn.views.*";
 
 s|Application{
 	fontFamily:"微软雅黑";
@@ -17,6 +18,29 @@ s|Button{
 }
 s|ButtonBar{
 	skinClass:ClassReference("com.promise.cn.skin.PBButtonBarSkin");
+}
+
+s|TextInput{
+	skinClass:ClassReference("com.promise.cn.skin.PBTextInputSkin");
+}
+
+mx|DataGrid.MarketMoversDataGrid   
+{   
+	alternating-item-colors:#F1F1F2, #FFFFFF;   
+	useRollOver: false;   
+	vertical-grid-line-color:#A7A9AC;   
+	border-visible:false;   
+	color: #000000;   
+	font-weight: bold;   
+	font-size: 11pt;   
+	header-style-name: marketMoversDGHeader;   
+	gradient-color1:#627090;   
+	gradient-color2:#434d67;
+}   
+.marketMoversDGHeader{   
+	color: #000000;   
+	font-weight: bold;   
+	font-size: 12pt;   
 }
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"  creationComplete="init()"
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:views="com.promise.cn.views.*">
 	<fx:Style source="main.css" />
 	<fx:Declarations>
 		<s:Fade id="fade" target="{dataGrid}" alphaFrom="0" alphaTo="1" duration="1000"   />
@@ -11,11 +11,6 @@
 		@namespace s "library://ns.adobe.com/flex/spark";
 		@namespace mx "library://ns.adobe.com/flex/mx";
 		
-		.dataGrid{
-			fontFamily:'楷体';
-			fontSize:12;
-		}
-		
 		.label1{
 			fontFamily:'微软雅黑';
 			fontSize:12;
@@ -24,11 +19,6 @@
 		.label2{
 			fontFamily:'微软雅黑';
 			fontSize:12;
-		}
-		.dataGridHeader{
-			fontFamily:'微软雅黑';
-			fontSize:12;
-			backgroundColor:#888888
 		}
 		
 	</fx:Style>
@@ -85,14 +75,15 @@
 			<s:layout>
 				<s:VerticalLayout horizontalAlign="center" />
 			</s:layout>
-			<s:HGroup width="90%" height="50" verticalAlign="middle">
-				<s:ButtonBar id="buttonBar" requireSelection="true"  change="buttonBar_changeHandler(event)">
+			<s:Group width="90%" height="50" >
+				<s:ButtonBar id="buttonBar" left="0" top="15" requireSelection="true"  change="buttonBar_changeHandler(event)">
 					<mx:ArrayCollection> 
 						<fx:Object label="Button1" toolTip="图像"  iconnormal="com/promise/cn/images/thumb_button_unselected.png"  iconselect="com/promise/cn/images/thumb_button_selected.png"  />
 						<fx:Object label="Button2" toolTip="表格"  iconnormal="com/promise/cn/images/list_button_unselected.png" iconselect="com/promise/cn/images/list_button_selected.png" />
 					</mx:ArrayCollection>
 				</s:ButtonBar>
-			</s:HGroup>
+				<views:PBTextInput id="text" right="0"  top="15" />
+			</s:Group>
 			<mx:ViewStack id="myViewStack"  width="90%" height="40%" selectedIndex="0" creationPolicy="all">
 				<s:NavigatorContent id="nc1">
 					<s:List dataProvider="{list}" id="list1"  labelField="filed1" width="100%" height="100%" change="list1_changeHandler(event)" itemRenderer="com.promise.cn.renderer.ListRendererImage" >
@@ -102,7 +93,7 @@
 					</s:List>
 				</s:NavigatorContent>
 				<s:NavigatorContent id="nc2">
-					<mx:DataGrid id="dataGrid" borderVisible="false" itemClick="dataGrid_itemClickHandler(event)" headerStyleName="dataGridHeader"   width="100%" height="100%" dataProvider="{list}" styleName="dataGrid">
+					<mx:DataGrid id="dataGrid" borderVisible="false" itemClick="dataGrid_itemClickHandler(event)" styleName="MarketMoversDataGrid"   width="100%" height="100%" dataProvider="{list}">
 						<mx:columns>
 							<mx:DataGridColumn headerText="Author" dataField="filed1"  />
 							<mx:DataGridColumn headerText="Rating" dataField="filed2"  />
@@ -113,7 +104,7 @@
 			</mx:ViewStack>
 			
 			<s:HGroup width="90%" height="35%" verticalAlign="bottom" visible="{null!=item}" gap="50">
-				<s:Image source="{'com/promise/cn/images/'+item.icon+'.jpg'}" fillMode="clip"  />
+				<s:Image source="{'com/promise/cn/images/'+item.icon+'.jpg'}" fillMode="clip"   />
 				<s:VGroup width="50%" height="100%" verticalAlign="bottom" gap="13">
 					<s:HGroup >
 						<s:Label text="Author： " styleName="label1" />
