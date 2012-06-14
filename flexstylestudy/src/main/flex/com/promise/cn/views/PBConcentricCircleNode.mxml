@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init()" horizontalAlign="center"
+		  xmlns:s="library://ns.adobe.com/flex/spark" verticalAlign="middle" gap="0"
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="150" xmlns:vo="com.promise.cn.vo.*">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.promise.cn.vo.PBConcentricCircle;
+			import com.promise.cn.vo.PBLine;
+			
+			//初始化
+			public function init():void{
+				var circle:PBConcentricCircle = new PBConcentricCircle();
+				this.addElement(circle);
+				var pbLine:PBLine = new PBLine(new Point(9,circle.height),new Point(200,circle.height));
+				this.addElement(pbLine);
+				var circle1:PBConcentricCircle = new PBConcentricCircle(207);
+				this.addElement(circle1);
+				var pbLine2:PBLine = new PBLine(new Point(216,circle.height),new Point(400,circle.height));
+				this.addElement(pbLine2);
+				var circle2:PBConcentricCircle = new PBConcentricCircle(407);
+				this.addElement(circle2);
+			}
+			
+		]]>
+	</fx:Script>
+</s:HGroup>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"  creationComplete="init()"
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="40">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.promise.cn.vo.PBPoint;
+			
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			public var pointObjects:ArrayCollection;
+			
+			//初始化方法
+			public function init():void{
+				initData();
+			}
+			
+			//初始化数据
+			public function initData():void{
+				if(null==pointObjects ||pointObjects.length==0){
+				var object1:Object = {id:'1',x:10,y:20,label:'id1',toolTip:'id1'};
+				var object2:Object = {id:'2',x:80,y:20,label:'id2',toolTip:'id2'};
+				var object3:Object = {id:'3',x:150,y:20,label:'id3',toolTip:'id3'};
+				pointObjects.addItem(new PBPoint(object1));
+				pointObjects.addItem(new PBPoint(object2));
+				pointObjects.addItem(new PBPoint(object3));
+				}
+			}
+			
+		]]>
+	</fx:Script>
+</s:Group>

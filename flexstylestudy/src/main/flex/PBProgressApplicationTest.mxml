@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"  creationComplete="init()"
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:views="com.promise.cn.views.*">
+	<fx:Script>
+		<![CDATA[
+			import com.promise.cn.vo.LinkLine;
+			import com.promise.cn.vo.LinkMap;
+			import com.promise.cn.vo.PBConcentricCircle;
+			import com.promise.cn.vo.PBLine;
+			
+			import mx.controls.Alert;
+			private var point1:Point;
+			private var point2:Point;
+			private var point3:Point;
+			private var map1:LinkMap;
+			private var map2:LinkMap;
+			private var map3:LinkMap;
+			private var line:LinkLine;
+			private var line2:LinkLine;
+			private var colorArr:Array=["0xFF0000","0x00FF00","0x0000FF","0xFFFF00"];
+			private var k:int=0;
+			
+			private function init():void{
+
+			}
+	
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<views:PBConcentricCircleNode />
+</s:Application>
