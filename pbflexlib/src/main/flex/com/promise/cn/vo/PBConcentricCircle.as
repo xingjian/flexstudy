@@ -25,11 +25,13 @@ package com.promise.cn.vo
 		private var _interval:Number;
 		private var _overFillColor:uint;
 		private var _tip:String;
+		private var _pId:String;
 		
 		//带参数构造函数
-		public function PBConcentricCircle(centerX:Number=0,centerY:Number=0,radius:Number=7,interval:Number=4,toolTip:String="",fillColor:uint=0x6391C4,overFillColor:uint=0xff0000)
+		public function PBConcentricCircle(pId:String="",centerX:Number=0,centerY:Number=0,radius:Number=7,interval:Number=4,toolTip:String="",fillColor:uint=0x6391C4,overFillColor:uint=0xff0000)
 		{
 			super();
+			this.pId = pId;
 			this.centerX = centerX;
 			this.centerY = centerY;
 			this.radius = radius;
@@ -158,6 +160,17 @@ package com.promise.cn.vo
 			_tip = value;
 			this.toolTip = _tip;
 		}
+
+		public function get pId():String
+		{
+			return _pId;
+		}
+
+		public function set pId(value:String):void
+		{
+			_pId = value;
+		}
+
 
 	}
 }

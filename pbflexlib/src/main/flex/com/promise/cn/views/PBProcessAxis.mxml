@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" 
+		 xmlns:s="library://ns.adobe.com/flex/spark"  fontFamily="微软雅黑" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Metadata>
+		[Event(name="pbProcessAxisSelectNode",type="com.promise.cn.event.PBEvent")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import com.promise.cn.event.PBEvent;
+			import com.promise.cn.utils.PBUtil;
+			import com.promise.cn.vo.PBConcentricCircle;
+			import com.promise.cn.vo.PBLine;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			import spark.components.Label;
+			
+			[Bindable]
+			public var useCustom:Boolean = false;//默认采用简单方式
+			[Bindable]
+			public var customDataList:ArrayCollection;//当useCustom=true时使用该集合
+			[Bindable]
+			public var defaultDataList:ArrayCollection;//当useCustom=false时使用该集合
+			[Bindable]
+			public var labelPosition:String = "up";//lable显示位置,默认显示上面，其取值范围为up, down
+			public var pbLineWidth:Number = 0;//节点连接线的长度
+			public var showLabel:Boolean = true;
+			public var labelFontSize:int = 12;
+			public var labelFontFamily:String = "Arial";
+			
+			//初始化方法
+			protected function init(event:FlexEvent):void{
+				if(useCustom){//采用自定义形式
+				}else{//采用默认形式
+					defaultDataListHandle()
+				}
+			}
+			
+			//默认方式处理
+			private function defaultDataListHandle():void{
+				var wNumber:Number = this.width;
+				var left:Number = 25;//左边距
+				var currentX:Number = left;
+				var currentY:Number = this.height*0.75;
+				var lineWidth:Number = getPbLineWidth();
+				for(var i:int=0;i<defaultDataList.length;i++){
+					var object:Object = defaultDataList[i];
+					var label:Label = new Label();
+					label.text = object.name;
+					label.setStyle("fontSize",labelFontSize);
+					var doubleCircle:PBConcentricCircle = new PBConcentricCircle(object.uid);
+					doubleCircle.addEventListener(MouseEvent.CLICK,doubleCircleClickHandle);
+					if(labelPosition=="up"){
+						doubleCircle.centerX = currentX;
+						doubleCircle.centerY = currentY;
+						this.addElement(doubleCircle);
+						currentX = doubleCircle.centerX+doubleCircle.radius+3;//线的宽度+1=3
+						if(i!=defaultDataList.length-1){
+							var pbLine:PBLine = new PBLine(new Point(currentX,currentY),new Point(currentX+lineWidth,currentY));
+							currentX = pbLine.endPoint.x+pbLine.radius+1;
+							this.addElement(pbLine);
+						}
+						if(showLabel){
+							var labelWidth:Number = PBUtil.measureTextWidth(label.text,label.getStyle("fontSize"),label.getStyle("fontFamily"));
+							label.x = doubleCircle.centerX - labelWidth/2;
+							label.y = this.height*0.5;
+							this.addElement(label);
+						}
+					}else if(labelPosition=="down"){
+					
+					}
+				}
+			}
+			
+			//自定义处理方式
+			private function customDataListHandle():void{
+			
+			}
+			
+			public function  getPbLineWidth():Number{
+				var widthTemp:Number  = 0;
+				if(pbLineWidth!=0){
+					widthTemp = pbLineWidth;
+				}else{
+					var widthAll:Number = this.width;
+					widthTemp = (widthAll-50-defaultDataList.length*10-((defaultDataList.length-1)*6))/(defaultDataList.length-1);
+				}
+				return widthTemp;
+			}
+			
+			//鼠标点击事件处理
+			public function doubleCircleClickHandle(event:MouseEvent):void{
+				var doubleCircle:PBConcentricCircle = event.currentTarget  as PBConcentricCircle;
+				var pbEvent:PBEvent = new PBEvent(PBEvent.PBPROCESSAXISSELECTNODE,doubleCircle.pId);
+				this.dispatchEvent(pbEvent);
+			}
+			
+		]]>
+	</fx:Script>
+</s:Group>
