@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init()" close="{PopUpManager.removePopUp(this)}" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" skinClass="com.promise.cn.skins.PBLoadingTitleWindowSkin" borderVisible="false"
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="50" dropShadowVisible="false">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.SWFLoader;
+			import mx.managers.PopUpManager;
+			
+			[Embed(source="com/promise/cn/images/loading.swf")]
+			[Bindable]
+			public var loadingClass:Class;
+
+			[Bindable]
+			public var labelText:String="";
+			//初始化方法
+			public function init():void{
+
+			}
+
+		]]>
+	</fx:Script>
+	<s:HGroup width="100%" horizontalAlign="center" id="hg" verticalAlign="middle" gap="3">
+		<s:HGroup width="50" height="100%" verticalAlign="middle" horizontalAlign="center">
+			<mx:SWFLoader id="w" source="com/promise/cn/images/loading.swf"  horizontalAlign="center" /> 
+		</s:HGroup>
+		<s:Label text="{labelText}" fontFamily="微软雅黑" fontSize="14" textAlign="right" />
+	</s:HGroup>
+</s:TitleWindow>
