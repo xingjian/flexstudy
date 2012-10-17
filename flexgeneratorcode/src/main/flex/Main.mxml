@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init()" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" fontFamily="微软雅黑" fontSize="13" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.promise.util.PBUtil;
+			
+			//初始化方法
+			public function init():void{
+			
+			}
+			
+			//导出代码
+			public function save_clickHandler(event:MouseEvent):void{
+				var file:FileReference=new FileReference();
+				file.save(textArea.text,classNI.text+".as");
+			}
+			
+			protected function gen_clickHandler(event:MouseEvent):void
+			{
+				textArea.text = PBUtil.create(packNI.text,classNI.text,extendTA.text,importTA.text,interfaceTA.text,varTA.text,check1.selected,check2.selected,check3.selected);
+			}
+			
+			protected function reset_clickHandler(event:MouseEvent):void
+			{
+				varTA.text = "varname";
+				extendTA.text = "extendsclass";
+				classNI.text = "classname";
+				interfaceTA.text = "interfaceclass";
+				importTA.text = "importclass";
+				packNI.text = "packagename";
+				check1.selected = false;
+				check2.selected = false;
+				check3.selected = false;
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Panel width="100%" height="100%" title="Flex代码生成器">
+		<s:HGroup width="100%" height="100%">
+			<s:Panel title="参数配置" width="350" height="100%">
+				<s:VGroup width="100%" height="100%" horizontalAlign="center">
+					<s:HGroup width="95%" height="30" verticalAlign="middle">
+						<s:Label text="包名:" />
+						<s:TextInput id="packNI" text="packagename" width="90%" />
+					</s:HGroup>
+					<s:HGroup width="95%" height="30" verticalAlign="middle">
+						<s:Label text="类名:" />
+						<s:TextInput id="classNI" text="classname" width="90%" />
+					</s:HGroup>
+					<s:VGroup width="95%" height="100%" verticalAlign="middle">
+						<s:Label text="变量（用分号隔开" />
+						<s:TextArea id="varTA" text="varname" width="100%" height="100%" />
+					</s:VGroup>
+					<s:VGroup width="95%" height="60" verticalAlign="middle">
+						<s:CheckBox label="继承类" id="check1" />
+						<s:TextArea id="extendTA" text="extendsclass" width="100%" height="100%" editable="{check1.selected}" />
+					</s:VGroup>
+					<s:VGroup width="95%" height="120" verticalAlign="middle">
+						<s:CheckBox label="导入类" id="check2" />
+						<s:TextArea id="importTA" text="importclass" width="100%" height="100%" editable="{check2.selected}"/>
+					</s:VGroup>
+					<s:VGroup width="95%" height="60" verticalAlign="middle">
+						<s:CheckBox label="接口类"  id="check3"/>
+						<s:TextArea id="interfaceTA" text="interfaceclass" width="100%" height="100%" editable="{check3.selected}"/>
+					</s:VGroup>
+					<s:HGroup width="95%" horizontalAlign="center">
+						<s:Button label="生成代码" click="gen_clickHandler(event)" />
+						<s:Button label="重新设置" click="reset_clickHandler(event)" />
+					</s:HGroup>
+					
+				</s:VGroup>
+			</s:Panel>
+			<s:Panel title="生成代码展示" width="100%" height="100%">
+				<s:VGroup width="100%" height="100%" gap="1">
+					<s:TextArea id="textArea" width="100%" height="100%" />
+					<s:HGroup width="100%" height="30" horizontalAlign="center" verticalAlign="middle">
+						<s:Button label="导出Code" click="save_clickHandler(event)" />
+					</s:HGroup>
+				</s:VGroup>
+			</s:Panel>
+		</s:HGroup>
+	</s:Panel>
+</s:Application>
