@@ -20,6 +20,10 @@ package com.promise.util
 					}
 				}
 			}
+			//[RemoteClass(alias="com.promise.cn.common.domain.Menu")]
+			//[Bindable]
+			retStr += "[RemoteClass(alias="+"\""+packName+"."+className+"\")]\n\t";
+			retStr +="[Bindable]\n\t"
 			//主体类
 			retStr +="public class "+ className +" ";
 			//判断是否有继承
@@ -58,7 +62,21 @@ package com.promise.util
 				}
 			}
 			//构造函数
-			retStr += "public function "+className +"():void"+"\n\t\t{\n\t\t}\n\n\t\t";
+			retStr += "public function "+className +"(object:Object=null):void"+"\n\t\t{\n\t\t\t";
+			retStr +="if(object!=null){\n\t\t\t\t";
+			if(varName!=""){
+				var varArrTemp:Array = varName.split(";");
+				for(var k:int=0;k<varArrTemp.length;k++){
+					var arrTemps:Array = varArrTemp[k].toString().split(":");
+					if(k==(varArrTemp.length-1)){
+						retStr += "this."+arrTemps[0]+" = object."+arrTemps[0]+";\n\t\t\t"
+					}else{
+						retStr += "this."+arrTemps[0]+" = object."+arrTemps[0]+";\n\t\t\t\t"
+					}
+				}
+			}
+			retStr +="}\n";
+			retStr +="\t\t}\n\n\t\t";
 			//get函数生成
 			if(varName!=""){
 				var varArrGet:Array = varName.split(";");
